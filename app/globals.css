@@ -1,26 +1,155 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a1628;
+  --card: #ffffff;
+  --card-foreground: #0a1628;
+  --popover: #ffffff;
+  --popover-foreground: #0a1628;
+  --primary: #0f4c81;
+  --primary-foreground: #ffffff;
+  --secondary: #1e88e5;
+  --secondary-foreground: #ffffff;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #0ea5e9;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0ea5e9;
+  --radius: 0.5rem;
+
+  /* Ankor Brand Colors - Navy Blues */
+  --ankor-navy-950: #0a1628;
+  --ankor-navy-900: #0d1f38;
+  --ankor-navy-800: #112d4e;
+  --ankor-navy-700: #164063;
+  --ankor-navy-600: #1c5379;
+  --ankor-navy-500: #0f4c81;
+
+  /* Ankor Brand Colors - Sky Blues */
+  --ankor-sky-600: #0284c7;
+  --ankor-sky-500: #0ea5e9;
+  --ankor-sky-400: #38bdf8;
+  --ankor-sky-300: #7dd3fc;
+
+  /* Ankor Brand Colors - Teal Accents */
+  --ankor-teal-600: #0891b2;
+  --ankor-teal-500: #06b6d4;
+  --ankor-teal-400: #22d3ee;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Ankor Brand Palette */
+  --color-ankor-navy-950: var(--ankor-navy-950);
+  --color-ankor-navy-900: var(--ankor-navy-900);
+  --color-ankor-navy-800: var(--ankor-navy-800);
+  --color-ankor-navy-700: var(--ankor-navy-700);
+  --color-ankor-navy-600: var(--ankor-navy-600);
+  --color-ankor-navy-500: var(--ankor-navy-500);
+  --color-ankor-sky-600: var(--ankor-sky-600);
+  --color-ankor-sky-500: var(--ankor-sky-500);
+  --color-ankor-sky-400: var(--ankor-sky-400);
+  --color-ankor-sky-300: var(--ankor-sky-300);
+  --color-ankor-teal-600: var(--ankor-teal-600);
+  --color-ankor-teal-500: var(--ankor-teal-500);
+  --color-ankor-teal-400: var(--ankor-teal-400);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  @apply border-border;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), 'Inter', system-ui, -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle background gradient */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60vh;
+  background: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      color-mix(in srgb, var(--ankor-sky-400) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 0%,
+      color-mix(in srgb, var(--ankor-teal-400) 6%, transparent),
+      transparent 60%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Smooth transitions */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    transition-duration: var(--default-transition-duration);
+    transition-timing-function: var(--default-transition-timing-function);
+  }
+
+  a,
+  button {
+    transition-property: color, background-color, border-color, transform,
+      box-shadow;
+  }
+}
+
+/* Selection styling */
+::selection {
+  background: color-mix(in srgb, var(--ankor-sky-500) 30%, transparent);
+  color: var(--foreground);
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }

@@ -7,9 +7,9 @@ import Button from '@/components/ui/button';
 import { fetchYachtBySlug } from '@/services/yacht-service';
 
 interface YachtDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export const revalidate = 3600;
@@ -31,7 +31,7 @@ const formatCrew = (crew?: number) =>
 export default async function YachtDetailPage({
   params,
 }: YachtDetailPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const yacht = await fetchYachtBySlug(slug);
 
   if (!yacht) {

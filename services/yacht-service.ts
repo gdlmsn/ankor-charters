@@ -106,7 +106,7 @@ const loadUnsplashImages = async () => {
         Accept: 'application/json',
       },
       next: {
-        revalidate: 60 * 60,
+        revalidate: 3600,
       },
     });
 
@@ -195,7 +195,7 @@ const toArray = (payload: unknown): RawYacht[] => {
 
 async function requestYachts(): Promise<RawYacht[]> {
   const response = await fetch(API_URL, {
-    next: { revalidate: 60 * 60 },
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {
